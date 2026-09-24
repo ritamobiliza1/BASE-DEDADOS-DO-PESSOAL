@@ -1,0 +1,6 @@
+{
+  "name": "Sistema de Mobilizadores · Sumbe PRO",
+  "description": "Sistema de gestão e controlo da campanha de mobilização e vacinação com funcionamento offline, relatórios e sincronização de agenda.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1320"/>
+      <stop offset="50%" stop-color="#111c2e"/>
+      <stop offset="100%" stop-color="#1d2d44"/>
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4d4d"/>
+      <stop offset="100%" stop-color="#b71c1c"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd54f"/>
+      <stop offset="100%" stop-color="#d9a441"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)"/>
+  <rect x="16" y="16" width="480" height="480" rx="96" fill="none" stroke="url(#goldGrad)" stroke-width="4" stroke-opacity="0.3"/>
+  <path d="M256 64 C352 64, 416 112, 416 224 C416 344, 304 416, 256 448 C208 416, 96 344, 96 224 C96 112, 160 64, 256 64 Z" fill="url(#redGrad)" filter="drop-shadow(0 12px 24px rgba(0,0,0,0.5))"/>
+  <circle cx="256" cy="230" r="110" fill="#0f172a" fill-opacity="0.85" stroke="url(#goldGrad)" stroke-width="6"/>
+  <!-- Polio Vaccine / Medical Cross & Drop -->
+  <path d="M236 150 H276 V210 H336 V250 H276 V310 H236 V250 H176 V210 H236 Z" fill="#ffffff"/>
+  <circle cx="256" cy="230" r="22" fill="url(#goldGrad)"/>
+  <circle cx="256" cy="230" r="10" fill="#b71c1c"/>
+  <!-- Star -->
+  <polygon points="256,92 264,116 288,116 268,130 276,154 256,140 236,154 244,130 224,116 248,116" fill="url(#goldGrad)"/>
+</svg>

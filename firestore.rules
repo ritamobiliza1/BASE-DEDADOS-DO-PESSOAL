@@ -1,0 +1,68 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    function isValidPerson(data) {
+      return data.type in ['mob', 'sup', 'moto'] &&
+        data.nome is string && data.nome.size() > 0 && data.nome.size() <= 150 &&
+        data.bi is string && data.bi.size() > 0 && data.bi.size() <= 20 &&
+        data.coord is string && data.coord.size() > 0 && data.coord.size() <= 80 &&
+        data.dias is number && data.dias >= 0 && data.dias <= 60 &&
+        data.estado in ['NOVO', 'Disponível', 'Indisponível', 'Substituído'];
+    }
+
+    function isValidRecarga(data) {
+      return data.nome is string && data.nome.size() > 0 && data.nome.size() <= 150 &&
+        data.coord is string && data.coord.size() > 0 && data.coord.size() <= 80 &&
+        data.qtd is number && data.qtd >= 0 && data.qtd <= 100 &&
+        data.telefone is string && data.telefone.size() <= 25;
+    }
+
+    function isValidSetting(data) {
+      return data.ratesConfig is map;
+    }
+
+    function isValidHistory(data) {
+      return data.action is string && data.action.size() > 0 && data.action.size() <= 100 &&
+        data.person is string && data.person.size() <= 150;
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // People Collection (Mobilizadores, Supervisores, Motoqueiros)
+    match /people/{personId} {
+      allow read: if isValidId(personId);
+      allow create: if isValidId(personId) && isValidPerson(request.resource.data);
+      allow update: if isValidId(personId) && isValidPerson(request.resource.data);
+      allow delete: if isValidId(personId);
+    }
+
+    // Recargas Collection
+    match /recargas/{recargaId} {
+      allow read: if isValidId(recargaId);
+      allow create: if isValidId(recargaId) && isValidRecarga(request.resource.data);
+      allow update: if isValidId(recargaId) && isValidRecarga(request.resource.data);
+      allow delete: if isValidId(recargaId);
+    }
+
+    // Campaign Settings (Rates config)
+    match /settings/{settingId} {
+      allow read: if isValidId(settingId);
+      allow write: if isValidId(settingId) && isValidSetting(request.resource.data);
+    }
+
+    // History Log
+    match /history/{historyId} {
+      allow read: if isValidId(historyId);
+      allow create: if isValidId(historyId) && isValidHistory(request.resource.data);
+      allow delete: if isValidId(historyId);
+    }
+  }
+}

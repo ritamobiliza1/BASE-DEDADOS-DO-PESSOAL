@@ -1,0 +1,249 @@
+{
+  "entities": {
+    "Person": {
+      "title": "Person",
+      "description": "Agente operacional da campanha de vacinação (Mobilizador, Supervisor ou Motoqueiro)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identificador único do agente"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["mob", "sup", "moto"],
+          "description": "Função principal do agente"
+        },
+        "nome": {
+          "type": "string",
+          "description": "Nome completo do agente",
+          "maxLength": 150
+        },
+        "bi": {
+          "type": "string",
+          "description": "Número do Bilhete de Identidade Angolano",
+          "maxLength": 20
+        },
+        "sexo": {
+          "type": "string",
+          "enum": ["F", "M"],
+          "description": "Género do agente"
+        },
+        "coord": {
+          "type": "string",
+          "description": "Coordenação ou Área de Saúde no Sumbe",
+          "maxLength": 80
+        },
+        "dias": {
+          "type": "number",
+          "description": "Dias de trabalho atribuídos"
+        },
+        "iban": {
+          "type": "string",
+          "description": "IBAN angolano (AO06...)",
+          "maxLength": 35
+        },
+        "banco": {
+          "type": "string",
+          "description": "Nome do Banco comercial",
+          "maxLength": 50
+        },
+        "contacto": {
+          "type": "string",
+          "description": "Telefone ou WhatsApp",
+          "maxLength": 25
+        },
+        "funcao": {
+          "type": "string",
+          "description": "Função específica (para supervisores)",
+          "maxLength": 80
+        },
+        "marca": {
+          "type": "string",
+          "description": "Marca da motorizada ou viatura (obrigatório para motoqueiros)",
+          "maxLength": 50
+        },
+        "matricula": {
+          "type": "string",
+          "description": "Matrícula oficial da motorizada ou viatura (obrigatório para motoqueiros)",
+          "maxLength": 30
+        },
+        "nivelAcademico": {
+          "type": "string",
+          "description": "Nível académico ou escolar do agente (ex: Licenciatura, Técnico Médio, PUNIV)",
+          "maxLength": 80
+        },
+        "areaFormacao": {
+          "type": "string",
+          "description": "Área de formação (ex: Ciências da Saúde, Pedagogia, Ciências Físicas e Biológicas)",
+          "maxLength": 100
+        },
+        "curso": {
+          "type": "string",
+          "description": "Curso concluído ou frequentado (ex: Enfermagem Geral, Análises Clínicas, Pedagogia)",
+          "maxLength": 120
+        },
+        "instituicao": {
+          "type": "string",
+          "description": "Instituição de ensino ou escola",
+          "maxLength": 120
+        },
+        "anoConclusao": {
+          "type": "string",
+          "description": "Ano de conclusão dos estudos",
+          "maxLength": 10
+        },
+        "estado": {
+          "type": "string",
+          "enum": ["NOVO", "Disponível", "Indisponível", "Substituído"],
+          "description": "Estado operacional do agente"
+        },
+        "isNovo": {
+          "type": "boolean",
+          "description": "Indica se o registo foi adicionado nesta ronda"
+        },
+        "obs": {
+          "type": "string",
+          "description": "Observações operacionais ou motivo de substituição",
+          "maxLength": 500
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Data de criação ISO"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Data de atualização ISO"
+        }
+      },
+      "required": ["type", "nome", "bi", "coord", "dias", "estado"]
+    },
+    "Recarga": {
+      "title": "Recarga",
+      "description": "Registo de saldo telefónico / recarga para supervisores",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identificador do registo de recarga"
+        },
+        "n": {
+          "type": "number",
+          "description": "Número de ordem"
+        },
+        "nome": {
+          "type": "string",
+          "description": "Nome do supervisor",
+          "maxLength": 150
+        },
+        "funcao": {
+          "type": "string",
+          "description": "Função na mobilização",
+          "maxLength": 80
+        },
+        "coord": {
+          "type": "string",
+          "description": "Coordenação atribuída",
+          "maxLength": 80
+        },
+        "qtd": {
+          "type": "number",
+          "description": "Quantidade de recargas"
+        },
+        "telefone": {
+          "type": "string",
+          "description": "Número de telefone",
+          "maxLength": 25
+        },
+        "operadora": {
+          "type": "string",
+          "description": "Unitel, Africell, etc.",
+          "maxLength": 30
+        },
+        "assinatura": {
+          "type": "string",
+          "description": "Status da assinatura",
+          "maxLength": 50
+        }
+      },
+      "required": ["nome", "coord", "qtd", "telefone"]
+    },
+    "CampaignSettings": {
+      "title": "CampaignSettings",
+      "description": "Taxas de pagamento e configuração da campanha",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID da configuração (ex: default)"
+        },
+        "ratesConfig": {
+          "type": "object",
+          "description": "Objeto com valores diários em Kwanzas e dias padrão"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Data de atualização ISO"
+        }
+      },
+      "required": ["id", "ratesConfig"]
+    },
+    "HistoryItem": {
+      "title": "HistoryItem",
+      "description": "Log de auditoria e operações realizadas",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identificador único"
+        },
+        "at": {
+          "type": "string",
+          "description": "Data e hora da ação ISO"
+        },
+        "action": {
+          "type": "string",
+          "description": "Tipo de ação realizada",
+          "maxLength": 100
+        },
+        "person": {
+          "type": "string",
+          "description": "Pessoa ou secção afetada",
+          "maxLength": 150
+        },
+        "details": {
+          "type": "string",
+          "description": "Detalhes complementares",
+          "maxLength": 300
+        }
+      },
+      "required": ["action", "person"]
+    }
+  },
+  "firestore": {
+    "/people/{personId}": {
+      "schema": {
+        "$ref": "#/entities/Person"
+      },
+      "description": "Coleção com todos os agentes (Mobilizadores, Supervisores, Motoqueiros)"
+    },
+    "/recargas/{recargaId}": {
+      "schema": {
+        "$ref": "#/entities/Recarga"
+      },
+      "description": "Coleção de recargas de comunicação"
+    },
+    "/settings/{settingId}": {
+      "schema": {
+        "$ref": "#/entities/CampaignSettings"
+      },
+      "description": "Configurações monetárias e parâmetros da campanha"
+    },
+    "/history/{historyId}": {
+      "schema": {
+        "$ref": "#/entities/HistoryItem"
+      },
+      "description": "Registo cronológico de auditoria e ações"
+    }
+  }
+}
